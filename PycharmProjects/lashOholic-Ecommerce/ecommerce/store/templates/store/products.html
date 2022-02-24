@@ -1,0 +1,96 @@
+{% extends 'store/base.html' %} {%load static%}
+<!-- product section start -->
+{% block content %}
+<div class="product_section layout_padding productLayout">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <h1 class="product_taital">Our Products</h1>
+        <p class="product_text">
+          incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+          quis nostrud exercitation
+        </p>
+      </div>
+    </div>
+    <div class="product_section_2 layout_padding">
+      <div class="row">
+        {% for product in paginator %}
+        <div class="col-lg-3 col-sm-6">
+          <div class="product_box">
+            <h4 class="bursh_text">{{product.name}}</h4>
+            <p class="lorem_text">
+              incididunt ut labore et dolore magna aliqua. Ut enim
+            </p>
+            <img src="{%static 'images/img-1.png'%}" class="image_1" />
+            <div class="btn_main">
+              <div class="buy_bt">
+                <button
+                  data-product="{{product.id}}"
+                  data-action="add"
+                  class="btn btn-outline-secondary add-btn update-cart"
+                >
+                  Add to Cart
+                </button>
+              </div>
+              <h3 class="price_text">Price ${{product.price}}</h3>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% comment %}
+      <div class="seemore_bt"><a href="#">See More</a></div>
+      {% endcomment %} {% comment %} paginator {% endcomment %}
+      <!--Pagination-->
+      <nav aria-label="productsPaginator">
+        <ul class="pagination mt-4 justify-content-center">
+          {% if paginator.has_previous %}
+          <li class="page-item">
+            <a
+              class="page-link"
+              href="?page={{ paginator.previous_page_number }}"
+              >Previous</a
+            >
+          </li>
+          {% else %}
+          <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1" aria-disabled="True"
+              >Previous</a
+            >
+          </li>
+          {% endif %} {% for i in paginator.paginator.page_range %}
+          <br />
+          {% if paginator.number == i %}
+          <li class="page-item active" aria-current="page">
+            <span class="page-link">
+              {{ i }}
+              <span class="sr-only">(current)</span>
+            </span>
+          </li>
+          {% else %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+          </li>
+          {% endif %} {% endfor %} {% if paginator.has_next %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ paginator.next_page_number }}"
+              >Next</a
+            >
+          </li>
+          {% else %}
+          <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1" aria-disabled="True"
+              >Next</a
+            >
+          </li>
+          {% endif %}
+        </ul>
+      </nav>
+      <!--end of Pagination-->
+    </div>
+  </div>
+</div>
+
+{% endblock content%}
+
+<!-- product section end -->
